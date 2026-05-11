@@ -22,6 +22,8 @@ echo "Extracted only db_scripts"
 
 cd db_scripts/$MOSIP_DB_NAME
 
+cd db_scripts/$DB_UNAME
+
 echo "Executing db_script"
 
 bash deploy.sh
