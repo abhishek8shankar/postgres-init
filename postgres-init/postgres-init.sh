@@ -20,9 +20,7 @@ find . -type f ! -path "./db_scripts/*" -exec rm -f {} \;
 
 echo "Extracted only db_scripts"
 
-cd db_scripts/$MOSIP_DB_NAME
-
-cd db_scripts/$DB_UNAME
+cd "db_scripts/$MOSIP_DB_NAME/$DB_UNAME"
 
 echo "Executing db_script"
 
