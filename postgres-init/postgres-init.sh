@@ -20,8 +20,11 @@ git checkout
 
 echo "Extracted only db_scripts"
 
-echo "Executing db_script for $MOSIP_DB_NAME"
+# DB_SCRIPTS_DIR is the folder name inside db_scripts/ in the repo (e.g. mosip_master).
+# MOSIP_DB_NAME is the actual Postgres database name to create (e.g. mosip_master02).
+# These are decoupled so the repo folder structure never needs to change.
+echo "Executing db_script for $MOSIP_DB_NAME (scripts dir: $DB_SCRIPTS_DIR)"
 
-cd "db_scripts/$MOSIP_DB_NAME"
+cd "db_scripts/$DB_SCRIPTS_DIR"
 
 bash deploy.sh
