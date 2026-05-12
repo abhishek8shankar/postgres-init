@@ -16,7 +16,7 @@ ARG container_user_gid=1001
 
 # Install packages and create user in a single layer to minimize image size
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends git unzip \
+  && apt-get install -y --no-install-recommends git unzip ca-certificates \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && groupadd -g ${container_user_gid} ${container_user_group} \
