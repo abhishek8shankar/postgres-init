@@ -1,0 +1,34 @@
+{{- range $dbKey, $dbVal := .Values.databases }}
+  {{- if $dbVal.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-{{ $dbKey | replace "_" "-" }}-init-env-config
+  namespace: {{ $.Release.Namespace }}
+  labels: {{- include "common.labels.standard" $ | nindent 4 }}
+    app.kubernetes.io/component: postgres
+    {{- if $.Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" $.Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if $.Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $.Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+data:
+  # Folder name inside db_scripts/ in the git repo (must match repo structure exactly)
+  DB_SCRIPTS_DIR: {{ $dbVal.scriptsDir | quote }}
+  # Actual Postgres database name to create (can be anything e.g. mosip_master02)
+  MOSIP_DB_NAME: {{ $dbVal.dbName | quote }}
+  DB_SERVERIP: {{ $dbVal.host | quote }}
+  DB_PORT: {{ $dbVal.port | quote }}
+  DEFAULT_DB_NAME: {{ $dbVal.defaultDb | quote }}
+  SU_USER: {{ $dbVal.su.user | quote }}
+  DB_UNAME: {{ $dbVal.dbUser | quote }}
+  DML_FLAG: {{ $dbVal.dml | quote }}
+  GIT_REPO_URL: {{ $dbVal.repoUrl | quote }}
+  GIT_BRANCH: {{ $dbVal.branch | quote }}
+  {{- if $dbVal.ENV_VERSION_FLAG }}
+  ENV_VERSION_FLAG: {{ $dbVal.ENV_VERSION_FLAG | quote }}
+  {{- end }}
+  {{- end }}
+  {{- end }}

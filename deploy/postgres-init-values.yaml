@@ -1,61 +1,92 @@
+image:
+  repository: abhishek8shankar/postgres-init
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: developnew
+
 dbUserPasswords:
   dbuserPassword: ""
 
 databases:
   mosip_master:
-    enabled: true
+    enabled: false
+    dbName: mosip_master02
+    dbUser: masteruser02
+    defaultDb: postgres
+    host: "172.31.8.248"
+    port: 5433
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgres-password
+    dml: 1
+    repoUrl: https://github.com/abhishek8shankar/admin-services.git
     branch: develop
 
   mosip_audit:
-    enabled: true
+    enabled: false
     branch: develop
 
   mosip_keymgr:
-    enabled: true 
+    enabled: false
     branch: develop
 
   mosip_kernel:
-    enabled: true
+    enabled: false
     branch: develop
 
   mosip_idmap:
-    enabled: true
+    enabled: false
     branch: develop
 
   mosip_prereg:
-    enabled: true
+    enabled: false
     branch: develop
 
   mosip_idrepo:
-    enabled: true
+    enabled: false
     branch: develop
 
   mosip_ida:
     enabled: true
+    scriptsDir: mosip_ida
+    dbName: mosip_ida02
+    dbUser: idauser02
+    defaultDb: postgres
+    host: "172.31.8.248"
+    port: 5433
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgres-password
+    dml: 1
+    repoUrl: https://github.com/abhishek8shankar/id-authentication.git
     branch: develop
 
   mosip_credential:
-    enabled: true
+    enabled: false
     branch: develop
 
   mosip_regprc:
-    enabled: true
+    enabled: false
     branch: develop
 
   mosip_pms:
-    enabled: true
+    enabled: false
     branch: develop
 
   mosip_hotlist:
-    enabled: true
+    enabled: false
     branch: develop
 
   mosip_resident:
-    enabled: true
+    enabled: false
     branch: develop
 
   mosip_otp:
-    enabled: true
+    enabled: false
     branch: develop
 
   mosip_toolkit:
